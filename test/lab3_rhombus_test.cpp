@@ -3,7 +3,7 @@
 #include "Point.h"
 
 TEST(rhomb_test_1, list_initializer_test) {
-    Rhombus rhomb{Point(3, 0), Point(0, 2), Point(-3, 0), Point(0, -2)};
+    Rhombus rhomb({Point(3, 0), Point(0, 2), Point(-3, 0), Point(0, -2)});
 
     Point* vertices = rhomb.get_points();
 
@@ -22,11 +22,10 @@ TEST(rhomb_test_3, sides_check_test) {
 }
 
 TEST(rhomb_test_4, area_center_test) {
-    Rhombus rhomb{Point(3, 0), Point(0, 2), Point(-3, 0), Point(0, -2)};
+    Rhombus rhomb({Point(3, 0), Point(0, 2), Point(-3, 0), Point(0, -2)});
 
-    double area = double(rhomb);
     Point center = *rhomb.center();
 
-    ASSERT_EQ(area, 12.0);
+    ASSERT_EQ(double(rhomb), 12);
     ASSERT_EQ(center, Point(0.0, 0.0));
 }

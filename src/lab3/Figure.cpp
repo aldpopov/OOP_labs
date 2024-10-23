@@ -13,7 +13,7 @@ void Figure::print() const {
 
 Figure::Figure() : vertices(nullptr), vertex_quantity(0) {}
 
-Figure::Figure(size_t s) : vertices(new Point[s]), vertex_quantity(s) {}
+Figure::Figure(size_t s) : vertices(new Point[s]), vertex_quantity(s) { check(); }
 
 Figure::Figure(const Figure& other) { copy(other); }
 
@@ -106,8 +106,8 @@ double Figure::area() const {
     for (size_t i = 0; i < vertex_quantity - 1; i++) {
         fig_area -= vertices[i].y * vertices[i + 1].x;
     }
-    fig_area -= vertices[vertex_quantity - 1].y * vertices[0].x;
-    return abs(fig_area) / 2;
+    fig_area -= vertices[0].x * vertices[vertex_quantity - 1].y;
+    return abs(fig_area) * 0.5;
 }
 
 Point* Figure::center() const {

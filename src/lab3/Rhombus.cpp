@@ -3,9 +3,9 @@
 
 Rhombus::Rhombus() : Figure(4) {}
 
-Rhombus::Rhombus(const Rhombus& other) : Figure(other) {}
+Rhombus::Rhombus(const Rhombus& other) : Figure(other) { check(); }
 
-Rhombus::Rhombus(Rhombus&& other) noexcept : Figure(other) {}
+Rhombus::Rhombus(Rhombus&& other) noexcept : Figure(other) { check(); }
 
 void Rhombus::check() {
     if (vertex_quantity != 4) {
@@ -15,7 +15,7 @@ void Rhombus::check() {
     Point* hull = convex_hull(*this);
     int hull_size = hull[0].x;
     if(hull_size != vertex_quantity) {
-        throw std::invalid_argument("It is not a convex pentagon.");
+        throw std::invalid_argument("It is not a convex rhomb.");
     } else {
         for(size_t i = 0; i < hull_size; i++) {
             set_point(hull[i + 1], i);

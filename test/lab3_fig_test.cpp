@@ -27,13 +27,12 @@ TEST(fig_test_3, list_initializer) {
 }
 
 TEST(fig_test_4, area_center_test) {
-    Figure fig({Point(0, 0), Point(4, 0), Point(3, 2), Point(1, 2)});
+    Figure fig({Point(0, 0), Point(4, 2), Point(3, 2), Point(1, 2)});
 
-    double area = double(fig);
     Point center = *fig.center();
     
-    ASSERT_EQ(area, 7.0);
-    ASSERT_EQ(center, Point(2, 1));
+    ASSERT_EQ(double(fig), 3.0);
+    ASSERT_EQ(center, Point(2, 1.5));
 }
 
 TEST(fig_test_5, convex_hull_test) {

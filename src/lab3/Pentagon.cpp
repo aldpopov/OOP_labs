@@ -3,9 +3,9 @@
 
 Pentagon::Pentagon() : Figure(5) {}
 
-Pentagon::Pentagon(const Pentagon& other) : Figure(other) {}
+Pentagon::Pentagon(const Pentagon& other) : Figure(other) { check(); }
 
-Pentagon::Pentagon(Pentagon&& other) noexcept : Figure(other) {}
+Pentagon::Pentagon(Pentagon&& other) noexcept : Figure(other) { check(); }
 
 void Pentagon::check() {
     if(vertex_quantity != 5) {

@@ -3,9 +3,9 @@
 
 Hexagon::Hexagon() : Figure(6) {}
 
-Hexagon::Hexagon(const Hexagon& other) : Figure(other) {}
+Hexagon::Hexagon(const Hexagon& other) : Figure(other) { check(); }
 
-Hexagon::Hexagon(Hexagon&& other) noexcept : Figure(other) {}
+Hexagon::Hexagon(Hexagon&& other) noexcept : Figure(other) { check(); }
 
 void Hexagon::check() {
     if(vertex_quantity != 6) {
