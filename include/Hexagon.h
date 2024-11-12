@@ -2,32 +2,35 @@
 #include <iostream>
 #include "Figure.h"
 
-class Hexagon : public Figure {
+template <Number N>
+class Hexagon : public Figure<N> {
     public:
     Hexagon();
     Hexagon(const Hexagon&);
     Hexagon(Hexagon&&) noexcept;
-    Hexagon(const std::initializer_list<Point>&);
+    Hexagon(const std::initializer_list<Point<N>>&);
     virtual void check();
     virtual ~Hexagon();
 };
 
-inline std::ostream& operator<<(std::ostream& out, const Hexagon& hex) {
+template <Number N>
+std::ostream& operator<<(std::ostream& out, const Hexagon<N>& hex) {
     out << "Hexagon( ";
-    Point* vertices = hex.get_points();
+    auto& vertices = hex.get_points();
     size_t size = hex.size();
-    for(size_t i = 0; i < hex.size(); i++) {
+    for(size_t i = 0; i < size; i++) {
         out << "( " << vertices[i].x << ", " << vertices[i].y << " ), ";
     }
     out << ") ";
     return out;
 }
 
-inline std::istream& operator>>(std::istream& in, Hexagon& hex) {
-    double x, y;
+template <Number N>
+std::istream& operator>>(std::istream& in, Hexagon<N>& hex) {
+    N x, y;
     for(size_t i = 0; i < hex.size(); i++) {
         in >> x >> y;
-        Point point({x, y});
+        Point<N> point({x, y});
         hex.set_point(point, i);
     }
     hex.check();

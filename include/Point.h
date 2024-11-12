@@ -1,12 +1,19 @@
 #pragma once
+#include <concepts>
+#include <memory>
+#include <type_traits>
 #include <iostream>
 
+template <typename Type>
+concept Number = std::is_integral_v<Type> || std::is_floating_point_v<Type>; 
+
+template <Number N>
 class Point {
     public:
-    double x,y;
+    N x,y;
     Point();
-    Point(double, double);
-    Point(std::initializer_list<double>& list);
+    Point(N, N);
+    Point(std::initializer_list<N>& list);
     Point operator+(const Point&) const;
     Point operator-(const Point&) const;
     double operator*(const Point&) const;
@@ -15,7 +22,8 @@ class Point {
     double abs() const;
 };
 
-inline std::ostream& operator<<(std::ostream& out, const Point& p) {
+template <typename Type>
+std::ostream& operator<<(std::ostream& out, const Point<Type>& p) {
     out << "Point( " << p.x << ", " << p.y << " )";
     return out;
 }

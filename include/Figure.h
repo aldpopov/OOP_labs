@@ -1,20 +1,22 @@
 #pragma once
 #include <iostream>
+#include <memory>
 #include "Point.h"
 
+template <Number N>
 class Figure {
     public:
-    Point* vertices;
+    std::unique_ptr<Point<N>[]> vertices;
     size_t vertex_quantity;
     Figure();
     Figure(size_t);
     Figure(const Figure&);
     Figure(Figure&&) noexcept;
-    Figure(const std::initializer_list<Point>&);
+    Figure(const std::initializer_list<Point<N>>&);
     virtual ~Figure() noexcept;
-    Point* get_points() const;
-    void set_points(Point*);
-    void set_point(Point&, size_t);
+    const std::unique_ptr<Point<N>[]>& get_points() const;
+    void set_points(std::unique_ptr<Point<N>[]>);
+    void set_point(Point<N>&, size_t);
     size_t size() const;
     void clear();
     void copy(const Figure&);
@@ -24,26 +26,28 @@ class Figure {
     bool operator==(const Figure&) const;
     double area() const;
     virtual void check();
-    Point* center() const;
+    std::unique_ptr<Point<N>> center() const;
     operator double() const { return area(); };
 };
 
-inline std::ostream& operator<<(std::ostream& out, const Figure& fig) {
+template <Number N>
+std::ostream& operator<<(std::ostream& out, const Figure<N>& fig) {
     out << "( ";
-    Point* vertices = fig.get_points();
+    auto& vertices = fig.get_points();
     size_t size = fig.size();
-    for(size_t i = 0; i < fig.size(); i++) {
+    for(size_t i = 0; i < size; i++) {
         out << "( " << vertices[i].x << ", " << vertices[i].y << ") ";
     }
     out << ") ";
     return out;
 }
 
-inline std::istream& operator>>(std::istream& in, Figure& fig) {
-    double x, y;
+template <Number N>
+std::istream& operator>>(std::istream& in, Figure<N>& fig) {
+    N x, y;
     for(size_t i = 0; i < fig.size(); i++) {
         in >> x >> y;
-        Point point({x, y});
+        Point<N> point({x, y});
         fig.set_point(point, i);
     }
     fig.check();

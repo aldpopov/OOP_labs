@@ -2,32 +2,35 @@
 #include <iostream>
 #include "Figure.h"
 
-class Pentagon : public Figure {
+template <Number N>
+class Pentagon : public Figure<N> {
     public:
     Pentagon();
     Pentagon(const Pentagon&);
     Pentagon(Pentagon&&) noexcept;
-    Pentagon(const std::initializer_list<Point>&);
+    Pentagon(const std::initializer_list<Point<N>>&);
     virtual void check();
     virtual ~Pentagon();
 };
 
-inline std::ostream& operator<<(std::ostream& out, const Pentagon& penta) {
+template <Number N>
+std::ostream& operator<<(std::ostream& out, const Pentagon<N>& penta) {
     out << "Pentagon( ";
-    Point* vertices = penta.get_points();
+    auto& vertices = penta.get_points();
     size_t size = penta.size();
-    for(size_t i = 0; i < penta.size(); i++) {
+    for(size_t i = 0; i < size; i++) {
         out << "( " << vertices[i].x << ", " << vertices[i].y << " ), ";
     }
     out << ") ";
     return out;
 }
 
-inline std::istream& operator>>(std::istream& in, Pentagon& penta) {
-    double x, y;
+template <Number N>
+std::istream& operator>>(std::istream& in, Pentagon<N>& penta) {
+    N x, y;
     for(size_t i = 0; i < penta.size(); i++) {
         in >> x >> y;
-        Point point({x, y});
+        Point<N> point({x, y});
         penta.set_point(point, i);
     }
     penta.check();

@@ -1,8 +1,10 @@
 #pragma once
 #include <iostream>
-#include <vector>
 #include "Point.h"
 #include "Figure.h"
 
-int orientation(Point p, Point q, Point r);
-Point* convex_hull(Figure& fig);
+template <Number N>
+int orientation(Point<N> p, Point<N> q, Point<N> r);
+
+template <Number N>
+std::unique_ptr<Point<N>[]> convex_hull(Figure<N>& fig);
