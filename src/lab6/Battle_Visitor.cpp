@@ -18,12 +18,12 @@ void BattleVisitor::visit(NPC* npc) {
                 it->reset();
             } else if (it->get()->fight(npc) && !npc->fight(it->get())) {
                 notifyObservers(it->get()->getName() + " defeated " + npc->getName());
-                npc->accept(this); // Удаляем npc
+                npc->accept(this);
                 return;
             } else if (it->get()->fight(npc) && npc->fight(it->get())){
                 notifyObservers("Both " + npc->getName() + " and " + it->get()->getName() + " died in battle");
                 it->reset();
-                npc->accept(this); // Удаляем npc
+                npc->accept(this);
                 return;
             }
         }
@@ -40,8 +40,6 @@ void BattleVisitor::addObserver(Observer* observer) {
 
 bool BattleVisitor::canFight(NPC* npc1, NPC* npc2) {
     return std::pow(std::pow(npc2->getX() - npc1->getX(), 2) + std::pow(npc2->getY() - npc1->getY(), 2), 0.5) <= range;
-    /*return std::abs(npc1->getX() - npc2->getX()) <= range &&
-           std::abs(npc1->getY() - npc2->getY()) <= range;*/
 }
 
 void BattleVisitor::notifyObservers(const std::string& message) {

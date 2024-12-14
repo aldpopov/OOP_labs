@@ -17,7 +17,7 @@ std::string Dragon::getType() const { return "Dragon"; }
 
 bool Dragon::fight(NPC* other) {
     if (other->getType() == "Bull" || other->getType() == "Dragon" || other->getType() == "Frog") {
-        return true; // Дракон побеждает быка
+        return true;
     }
     return false;
 }
@@ -28,7 +28,7 @@ std::string Bull::getType() const { return "Bull"; }
 
 bool Bull::fight(NPC* other) {
     if (other->getType() == "Frog" || other->getType() == "Bull") {
-        return true; // Бык побеждает жабу
+        return true;
     }
     return false;
 }
@@ -38,5 +38,5 @@ Frog::Frog(const std::string& name, int x, int y) : NPC(name, x, y) {}
 std::string Frog::getType() const { return "Frog"; }
 
 bool Frog::fight(NPC* other) {
-    return false; // Жаба всегда проигрывает
+    return false;
 }

@@ -122,13 +122,11 @@ TEST(BattleVisitorTest, Battle) {
             (*it)->accept(&battleVisitor);
         }
     }
-
-    // Очищаем вектор от удаленных объектов
     npcs->erase(std::remove_if(npcs->begin(), npcs->end(), [](const std::unique_ptr<NPC>& npc) {
         return npc == nullptr;
     }), npcs->end());
 
-    EXPECT_EQ(npcs->size(), 1); // Все NPC должны быть удалены
+    EXPECT_EQ(npcs->size(), 1);
 
     EXPECT_EQ(mockObserver.messages.size(), 2);
     EXPECT_EQ(mockObserver.messages[0], "Draco defeated Bully");
