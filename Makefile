@@ -7,7 +7,7 @@ build: clean-build
 	cd ./build; cmake ..; make all
 
 run:
-	./build/*_exe
+	rm ./log.txt; ./build/*_exe
 
 test:
 	./build/*_test

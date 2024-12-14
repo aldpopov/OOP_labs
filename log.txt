@@ -1,0 +1,3 @@
+NPC4(Bull) defeated NPC0(Dragon) at (14, 5) - (13, 1)
+NPC2(Frog) defeated NPC1(Bull) at (10, 8) - (13, 5)
+NPC2(Frog) defeated NPC4(Bull) at (10, 8) - (14, 7)

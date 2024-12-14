@@ -4,25 +4,34 @@
 #include <string>
 #include <vector>
 #include <memory>
+#include <mutex>
 
 class NPC {
 public:
-    NPC(const std::string& name, int x, int y);
+    NPC(const std::string& name, int x, int y, int moveDistance, int attackDistance);
     virtual ~NPC() = default;
 
     std::string getName() const;
     int getX() const;
     int getY() const;
+    int getMoveDistance() const;
+    int getAttackDistance() const;
+    bool isAlive() const;
+    void setAlive(bool alive);
+    void getMapSize(int mapSize);
 
     virtual std::string getType() const = 0;
 
-    virtual bool fight(NPC* other) = 0;
-
-    void accept(class BattleVisitor* visitor);
+    void move();
 
 protected:
     std::string name;
     int x, y;
+    int moveDistance;
+    int attackDistance;
+    bool alive;
+    mutable std::mutex mtx;
+    int mapSize;
 };
 
 class Dragon : public NPC {
@@ -30,8 +39,6 @@ public:
     Dragon(const std::string& name, int x, int y);
 
     std::string getType() const override;
-
-    bool fight(NPC* other) override;
 };
 
 class Bull : public NPC {
@@ -40,7 +47,6 @@ public:
 
     std::string getType() const override;
 
-    bool fight(NPC* other) override;
 };
 
 class Frog : public NPC {
@@ -49,7 +55,6 @@ public:
 
     std::string getType() const override;
 
-    bool fight(NPC* other) override;
 };
 
 #endif // NPC_H
